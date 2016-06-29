@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+
+archivesBaseName='rest'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0.0-SNAPSHOT'
+
+mainClassName = 'Main'
+
+//applicationDefaultJvmArgs = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,address=8765']
+
+
+ext {
+	defaultEncoding = 'UTF-8'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.+'
+	compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.+'
+	compile 'mysql:mysql-connector-java:5.+'
+
+	// logger
+	compile 'org.slf4j:slf4j-api:1.+'
+	compile 'ch.qos.logback:logback-classic:1.+'
+
+	testCompile 'junit:junit:4.+'
+}
+
+[compileJava, compileTestJava].each {
+	it.options.encoding = defaultEncoding
+	it.options.debug = true
+}
+
+run {
+	standardInput = System.in
+}
+
+
